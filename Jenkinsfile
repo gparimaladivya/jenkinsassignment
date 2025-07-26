@@ -1,26 +1,20 @@
 pipeline {
-    agent any
+    agent { label 'test' }
 
     stages {
         stage('Clone Repo') {
             steps {
-                git branch: 'develop', url: 'https://github.com/gparimaladivya/jenkinsassignment.git'
+                git branch: 'test', url: 'https://github.com/gparimaladivya/jenkinsassignment.git'
             }
         }
 
-        stage('List Files') {
-            steps {
-                sh 'ls -la'
-            }
-        }
-
-        stage('Custom Folder') {
+        stage('Copy to Test Server') {
             steps {
                 sh '''
-                    mkdir -p myfolder
-                    cp -r Jenkinsfile README.md myfolder/
-                    echo "Files copied to myfolder:"
-                    ls -l myfolder
+                echo "Copying files to Test Server..."
+                mkdir -p ~/testdeploy
+                cp -r * ~/testdeploy/
+                ls -la ~/testdeploy
                 '''
             }
         }
