@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh '''
                     mkdir -p myfolder
-                    cp Jenkinsfile README.md myfolder/
+                    cp -r Jenkinsfile README.md myfolder/
                     echo "Files copied to myfolder:"
                     ls -l myfolder
                 '''
