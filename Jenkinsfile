@@ -2,30 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
+        stage('Checkout') {
             steps {
                 git branch: 'develop', url: 'https://github.com/gparimaladivya/jenkinsassignment.git'
             }
         }
 
-        stage('List Files') {
+        stage('Run Test Job') {
             steps {
-                sh 'ls -la'
+                build job: 'Push-to-Test'
             }
         }
 
-        stage('Custom Folder') {
+        stage('Run Prod Job') {
             steps {
-                sh 'mkdir -p myfolder'
-                sh 'cp Jenkinsfile README.md myfolder/'
-                sh 'echo "Files copied to myfolder:" && ls -l myfolder'
+                build job: 'Push-to-Prod'
             }
-        }
-    }
-
-    post {
-        success {
-            archiveArtifacts artifacts: 'myfolder/**', fingerprint: true
         }
     }
 }
