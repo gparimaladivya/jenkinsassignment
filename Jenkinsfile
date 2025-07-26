@@ -16,15 +16,16 @@ pipeline {
 
         stage('Custom Folder') {
             steps {
-                // Create folder if it doesn't exist
                 sh 'mkdir -p myfolder'
-
-                // Copy only Jenkinsfile and README.md to myfolder
                 sh 'cp Jenkinsfile README.md myfolder/'
-
-                // Show copied files
                 sh 'echo "Files copied to myfolder:" && ls -l myfolder'
             }
+        }
+    }
+
+    post {
+        success {
+            archiveArtifacts artifacts: 'myfolder/**', fingerprint: true
         }
     }
 }
