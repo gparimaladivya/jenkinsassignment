@@ -16,8 +16,12 @@ pipeline {
 
         stage('Custom Folder') {
             steps {
-                sh 'mkdir -p myfolder && cp -r * myfolder/'
-                sh 'echo "Files copied to myfolder:" && ls -l myfolder'
+                sh '''
+                    mkdir -p myfolder
+                    cp Jenkinsfile README.md myfolder/
+                    echo "Files copied to myfolder:"
+                    ls -l myfolder
+                '''
             }
         }
     }
